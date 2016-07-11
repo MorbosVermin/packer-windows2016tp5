@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<unattend xmlns="urn:schemas-microsoft-com:unattend">
+    <settings pass="windowsPE">
+        <component name="Microsoft-Windows-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <DiskConfiguration>
+                <Disk wcm:action="add">
+                    <CreatePartitions>
+                        <CreatePartition wcm:action="add">
+                            <Extend>false</Extend>
+                            <Order>1</Order>
+                            <Type>Primary</Type>
+                            <Size>350</Size>
+                        </CreatePartition>
+                        <CreatePartition wcm:action="add">
+                            <Extend>true</Extend>
+                            <Order>2</Order>
+                            <Type>Primary</Type>
+                        </CreatePartition>
+                    </CreatePartitions>
+                    <ModifyPartitions>
+                        <ModifyPartition wcm:action="add">
+                            <Order>2</Order>
+                            <Format>NTFS</Format>
+                            <Letter>C</Letter>
+                            <PartitionID>2</PartitionID>
+                            <Active>true</Active>
+                            <Label>Win10Pro</Label>
+                        </ModifyPartition>
+                        <ModifyPartition wcm:action="add">
+                            <Order>1</Order>
+                            <PartitionID>1</PartitionID>
+                            <Label>Boot</Label>
+                            <Format>NTFS</Format>
+                        </ModifyPartition>
+                    </ModifyPartitions>
+                    <DiskID>0</DiskID>
+                    <WillWipeDisk>true</WillWipeDisk>
+                </Disk>
+                <WillShowUI>OnError</WillShowUI>
+                <DisableEncryptedDiskProvisioning>true</DisableEncryptedDiskProvisioning>
+            </DiskConfiguration>
+            <ImageInstall>
+                <OSImage>
+                    <InstallFrom>
+                        <MetaData wcm:action="add">
+                            <Key>/IMAGE/INDEX</Key>
+                            <Value>2</Value>
+                        </MetaData>
+                        <Path>install.wim</Path>
+                    </InstallFrom>
+                    <InstallTo>
+                        <PartitionID>2</PartitionID>
+                        <DiskID>0</DiskID>
+                    </InstallTo>
+                    <WillShowUI>OnError</WillShowUI>
+                </OSImage>
+            </ImageInstall>
+            <UserData>
+                <ProductKey>
+                    <WillShowUI>Always</WillShowUI>
+                </ProductKey>
+                <FullName>Mike Duncan</FullName>
+                <Organization>WaitWha.com</Organization>
+            </UserData>
+        </component>
+    </settings>
+    <settings pass="specialize">
+        <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <AutoLogon>
+                <Password>
+                    <Value>dgBhAGcAcgBhAG4AdABQAGEAcwBzAHcAbwByAGQA</Value>
+                    <PlainText>false</PlainText>
+                </Password>
+                <Enabled>true</Enabled>
+                <Username>vagrant</Username>
+            </AutoLogon>
+            <DesktopOptimization>
+                <ShowWindowsStoreAppsOnTaskbar>false</ShowWindowsStoreAppsOnTaskbar>
+            </DesktopOptimization>
+            <OEMInformation>
+                <Manufacturer>WaitWha.com</Manufacturer>
+                <SupportAppURL>http://waitwha.com</SupportAppURL>
+                <SupportHours>8/5</SupportHours>
+                <SupportURL>http://waitwha.com</SupportURL>
+            </OEMInformation>
+            <WindowsFeatures>
+                <ShowWindowsMail>false</ShowWindowsMail>
+                <ShowWindowsMediaPlayer>false</ShowWindowsMediaPlayer>
+                <ShowMediaCenter>false</ShowMediaCenter>
+                <ShowInternetExplorer>false</ShowInternetExplorer>
+            </WindowsFeatures>
+            <CopyProfile>true</CopyProfile>
+            <TimeZone>UTC</TimeZone>
+            <RegisteredOrganization>WaitWha.com</RegisteredOrganization>
+            <RegisteredOwner>Mike Duncan</RegisteredOwner>
+            <BluetoothTaskbarIconEnabled>false</BluetoothTaskbarIconEnabled>
+        </component>
+    </settings>
+    <settings pass="oobeSystem">
+        <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <AutoLogon>
+                <Password>
+                    <Value>dgBhAGcAcgBhAG4AdABQAGEAcwBzAHcAbwByAGQA</Value>
+                    <PlainText>false</PlainText>
+                </Password>
+                <Username>vagrant</Username>
+                <Enabled>true</Enabled>
+            </AutoLogon>
+            <DesktopOptimization>
+                <ShowWindowsStoreAppsOnTaskbar>false</ShowWindowsStoreAppsOnTaskbar>
+            </DesktopOptimization>
+            <FirstLogonCommands>
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>cmd.exe /c a:\setup.bat</CommandLine>
+                    <Description>Sets up the workstation</Description>
+                    <Order>1</Order>
+                    <RequiresUserInput>false</RequiresUserInput>
+                </SynchronousCommand>
+            </FirstLogonCommands>
+            <OEMInformation>
+                <Manufacturer>WaitWha.com</Manufacturer>
+                <SupportURL>http://waitwha.com</SupportURL>
+                <SupportHours>8/5</SupportHours>
+                <SupportAppURL>http://waitwha.com</SupportAppURL>
+            </OEMInformation>
+            <UserAccounts>
+                <AdministratorPassword>
+                    <Value>VwBpAG4AZABvAHcAcwAhAHMAdQBjAGsAcwAyADAAMQA2AEEAZABtAGkAbgBpAHMAdAByAGEAdABvAHIAUABhAHMAcwB3AG8AcgBkAA==</Value>
+                    <PlainText>false</PlainText>
+                </AdministratorPassword>
+                <LocalAccounts>
+                    <LocalAccount wcm:action="add">
+                        <Password>
+                            <Value>dgBhAGcAcgBhAG4AdABQAGEAcwBzAHcAbwByAGQA</Value>
+                            <PlainText>false</PlainText>
+                        </Password>
+                        <Description>Vagrant User</Description>
+                        <DisplayName>Vagrant</DisplayName>
+                        <Group>Administrators</Group>
+                        <Name>vagrant</Name>
+                    </LocalAccount>
+                </LocalAccounts>
+            </UserAccounts>
+            <TimeZone>UTC</TimeZone>
+            <RegisteredOwner>Mike Duncan</RegisteredOwner>
+            <RegisteredOrganization>WaitWha.com</RegisteredOrganization>
+            <BluetoothTaskbarIconEnabled>false</BluetoothTaskbarIconEnabled>
+        </component>
+    </settings>
+    <cpi:offlineImage cpi:source="wim:c:/users/administrator/desktop/install.wim#Windows Server 2016 Technical Preview 5 SERVERSTANDARD" xmlns:cpi="urn:schemas-microsoft-com:cpi" />
+</unattend>

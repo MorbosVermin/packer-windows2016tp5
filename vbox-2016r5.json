@@ -1,0 +1,52 @@
+{
+  "builders": [
+    {
+      "type": "virtualbox-iso",
+      "vboxmanage": [
+        [ "modifyvm", "{{.Name}}", "--natpf1", "guest_winrm,tcp,,55985,,5985" ],
+        [ "modifyvm", "{{.Name}}", "--memory", "4096" ],
+        [ "modifyvm", "{{.Name}}", "--vram", "128" ],
+        [ "modifyvm", "{{.Name}}", "--cpus", "2" ]
+      ],
+      "guest_additions_mode": "{{ user `guest_additions_mode` }}",
+      "guest_os_type": "Windows10_64",
+      "headless": "{{ user `headless` }}",
+      "iso_url": "{{ user `iso_url` }}",
+      "iso_checksum": "{{ user `iso_checksum` }}",
+      "iso_checksum_type": "sha1",
+      "communicator": "winrm",
+      "winrm_username": "vagrant",
+      "winrm_password": "vagrant",
+      "winrm_timeout": "8h",
+      "shutdown_command": "cmd.exe /c a:/PackerShutdown.bat",
+      "shutdown_timeout": "15m",
+      "floppy_files": [
+        "Autounattend.xml",
+        "postunattend.xml",
+        "scripts/oracle.cer",
+        "scripts/PackerShutdown.bat",
+        "scripts/install-puppet.bat",
+        "scripts/install-guest-additions.ps1",
+        "scripts/install-choco.ps1",
+        "scripts/enable-winrm.ps1",
+        "scripts/setup.bat",
+        "scripts/unattend.bat"
+      ]
+    }
+  ],
+  "post-processors": [
+    [{
+      "type": "vagrant",
+      "keep_input_artifact": false,
+      "output": "windows2016tp5min-{{.Provider}}.box",
+      "vagrantfile_template": "vagrantfile-windows.template"
+    }]
+  ],
+  "variables": {
+    "core": "",
+    "guest_additions_mode": "attach",
+    "headless": "false",
+    "iso_checksum": "5d2a2795dca417ed66dfc6b18d733ce2bd09ec63",
+    "iso_url": "file:///c:/Users/Mike/Documents/Installation%20Images/14300.1000.160324-1723.RS1_RELEASE_SVC_SERVER_OEMRET_X64FRE_EN-US.ISO"
+  }
+}
